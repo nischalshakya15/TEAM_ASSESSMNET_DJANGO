@@ -42,14 +42,14 @@ def get_individual_average_dict(data_frame):
     individual_mean_list_of_dict = []
 
     for index, row in data_frame.iterrows():
-        individual_mean_dict = {
-            'Email Address': row['Email Address'],
-            'Trust': get_assessment_average(row, TRUST_LIST),
-            'Conflict': get_assessment_average(row, COMMITMENT_LIST),
-            'Commitment': get_assessment_average(row, COMMITMENT_LIST),
-            'Result': get_assessment_average(row, RESULT_LIST),
-            'Accountability': get_assessment_average(row, RESULT_LIST)
-        }
+        result_list_of_dict = [
+            {'assessment': 'Trust', 'average': get_assessment_average(row, TRUST_LIST)},
+            {'assessment': 'Conflict', 'average': get_assessment_average(row, CONFLICT_LIST)},
+            {'assessment': 'Commitment', 'average': get_assessment_average(row, COMMITMENT_LIST)},
+            {'assessment': 'Result', 'average': get_assessment_average(row, RESULT_LIST)},
+            {'assessment': 'Accountability', 'average': get_assessment_average(row, ACCOUNTABILITY_LIST)}
+        ]
+        individual_mean_dict = {'email': row['Email Address'], 'result': result_list_of_dict}
         individual_mean_list_of_dict.append(individual_mean_dict)
 
     return individual_mean_list_of_dict
@@ -57,27 +57,30 @@ def get_individual_average_dict(data_frame):
 
 def get_individual_average_dict_by_column_name(data_frame, column_name, values):
     """
-    For each row in the dataframe, get the average of the trust, conflict, commitment, result, and accountability
-    columns
+    It takes a dataframe, a column name, and a list of values, and returns a dictionary with the average of each assessment
+    for the individual
 
-    :param data_frame: the data frame that you want to get the average for
+    :param data_frame: the data frame that you want to search into
+    :param column_name: The column name in the data frame that you want to search for
+    :param values: the email address of the individual you want to get the average for
     :return: A list of dictionaries.
     """
-    individual_mean_list_of_dict = []
+    result_list_of_dict = []
     individual_df = search_into_data_frame(data_frame, column_name, values)
 
     for index, row in individual_df.iterrows():
+        result_list_of_dict.append({'assessment': 'Trust', 'average': get_assessment_average(row, TRUST_LIST)})
+        result_list_of_dict.append({'assessment': 'Conflict', 'average': get_assessment_average(row, CONFLICT_LIST)})
+        result_list_of_dict.append(
+            {'assessment': 'Commitment', 'average': get_assessment_average(row, COMMITMENT_LIST)})
+        result_list_of_dict.append({'assessment': 'Result', 'average': get_assessment_average(row, RESULT_LIST)})
+        result_list_of_dict.append(
+            {'assessment': 'Accountability', 'average': get_assessment_average(row, ACCOUNTABILITY_LIST)})
         individual_mean_dict = {
-            'Email Address': row['Email Address'],
-            'Trust': get_assessment_average(row, TRUST_LIST),
-            'Conflict': get_assessment_average(row, COMMITMENT_LIST),
-            'Commitment': get_assessment_average(row, COMMITMENT_LIST),
-            'Result': get_assessment_average(row, RESULT_LIST),
-            'Accountability': get_assessment_average(row, RESULT_LIST)
+            'email': row['Email Address'],
+            'result': result_list_of_dict
         }
-        individual_mean_list_of_dict.append(individual_mean_dict)
-
-    return individual_mean_list_of_dict
+        return individual_mean_dict
 
 
 def get_individual_average_data_frame(individual_mean_list_of_dict):

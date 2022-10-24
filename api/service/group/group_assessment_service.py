@@ -146,4 +146,9 @@ def get_sorted_average_of_average(group_mean_data_frame):
     ]
     data_map = {'Trust': data[0], 'Conflict': data[1], 'Commitment': data[2], 'Result': data[3],
                 'Accountability': data[4]}
-    return {k: v for k, v in sorted(data_map.items(), key=lambda item: item[1])}
+    sorted_data_map = {k: v for k, v in sorted(data_map.items(), key=lambda item: item[1])}
+    sorted_data = []
+    for key in sorted_data_map:
+        sorted_data.append({'assessment': key, 'average': sorted_data_map[key]})
+
+    return sorted_data
