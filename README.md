@@ -1,9 +1,9 @@
 ## Description 
 This project contains the list of API end points for the team assessment. 
 
-## Setup 
-* Install the python
-* Install the **virtualenv**
+## Running the project 
+* Install python
+* Install **virtualenv**
     ```shell
     sudo apt-get install virtualenv
     ```
@@ -23,5 +23,10 @@ This project contains the list of API end points for the team assessment.
 
 * Run the application 
     ```shell
-     gunicorn --bind 0.0.0.0:8000 team_assessment_comparison_backend.wsgi:application
+     gunicorn --bind 0.0.0.0:8000 backend.wsgi:application
     ```
+
+## With Docker
+* Install the docker and docker compose.
+* Run docker compose up.
+* Run docker ps to view the running container.

@@ -7,9 +7,9 @@ ENV PYTHONUNBUFFERED=1
 ENV VIRTUAL_ENV=/opt/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-WORKDIR /team_assessment_comparison_backend
-COPY . /team_assessment_comparison_backend
-COPY requirements.txt /team_assessment_comparison_backend
+WORKDIR /TEAM_ASSESSMENT_DJANGO
+COPY . /TEAM_ASSESSMENT_DJANGO
+COPY requirements.txt /TEAM_ASSESSMENT_DJANGO
 RUN pip install -r requirements.txt
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "team_assessment_comparison_backend.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "backend.wsgi:application"]
